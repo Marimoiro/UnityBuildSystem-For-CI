@@ -57,14 +57,12 @@ namespace BuildSystem
             AssetDatabase.CreateFolder("", BuildDirectory);
 
             var target = EditorUserBuildSettings.activeBuildTarget;
-            var options = BuildEvent.PreBuild(target, BuildParameter.GetActiveParameter());
 
 
-            var report = BuildPipeline.BuildPlayer(GetBuildScenes(), GetBuildPath(), target, options);
+            var report = BuildPipeline.BuildPlayer(GetBuildScenes(), GetBuildPath(), target, BuildEvent.GetBuildOption(BuildParameter.GetActiveParameter()));
 
             if (report.summary.result == UnityEditor.Build.Reporting.BuildResult.Succeeded)
             {
-                BuildEvent.PostBuild(BuildParameter.GetActiveParameter());
                 return;
             }
 
@@ -85,8 +83,6 @@ namespace BuildSystem
         {
             BuildParameter.GetParameter(buildParameterName).Build();
         }
-
-
     }
 }
      

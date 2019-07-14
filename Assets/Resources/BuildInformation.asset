@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b930f9773cca7de4f9fd3115b1451025, type: 3}
   m_Name: BuildInformation
   m_EditorClassIdentifier: 
-  BuildDateBinary: -8586384929807525643
-  BundleIdentifier: jp.marimo.sample
+  BuildDateBinary: -8586384775725297423
+  BundleIdentifier: jp.marimo.development

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa979f2b2267c5c459be8050b98199d8, type: 3}
   m_Name: Active
   m_EditorClassIdentifier: 
-  Name: Sample
-  AppName: sample
-  BundleIdentifier: jp.marimo.sample
-  Environment: sample
+  Name: Development
+  AppName: development
+  BundleIdentifier: jp.marimo.development
+  Environment: development

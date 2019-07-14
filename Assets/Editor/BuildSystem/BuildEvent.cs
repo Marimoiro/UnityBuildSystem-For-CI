@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEditor;
+using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
 namespace BuildSystem
 {
-    class BuildEvent
+    class BuildEvent : IPreprocessBuildWithReport, IPostprocessBuildWithReport
     {
         public static void SetAndroidParameters()
         {
@@ -24,28 +26,37 @@ namespace BuildSystem
             PlayerSettings.Android.keyaliasPass = "sample";
         }
 
-        public static BuildOptions PreBuild(BuildTarget target,BuildParameter parameter)
+
+
+        public int callbackOrder { get; } = 0;
+
+        public static BuildOptions GetBuildOption(BuildParameter parameter)
+        {
+            return BuildOptions.None;
+        }
+        public void OnPostprocessBuild(BuildReport report)
+        {
+            var parameter = BuildParameter.GetActiveParameter();
+            Debug.Log("Build End" + Environment.NewLine + JsonUtility.ToJson(parameter));
+        }
+
+        public void OnPreprocessBuild(BuildReport report)
         {
 
-            Debug.Log($"Build {target} Start" + Environment.NewLine + JsonUtility.ToJson(parameter));
+            var parameter = BuildParameter.GetActiveParameter();
+            Debug.Log($"Build {report.summary.platform} Start" + Environment.NewLine + JsonUtility.ToJson(parameter));
 
-            var bi = new BuildInformation
-            {
-                BuildDateBinary = DateTime.Now.ToBinary(),
-                BundleIdentifier = parameter.BundleIdentifier
-            };
+            var bi = ScriptableObject.CreateInstance<BuildInformation>();
+
+            bi.BuildDateBinary = DateTime.Now.ToBinary();
+            bi.BundleIdentifier = parameter.BundleIdentifier;
+            
 
             bi.Save();
 
             SetAndroidParameters();
-
-            return BuildOptions.None;
         }
 
-        public static void PostBuild(BuildParameter parameter)
-        {
-            Debug.Log("Build End" + Environment.NewLine + JsonUtility.ToJson(parameter));
-        }
 
         public static void BuildError(BuildReport report, BuildParameter parameter)
         {
@@ -56,5 +67,6 @@ namespace BuildSystem
 
             throw new InvalidOperationException("Build Error");
         }
+
     }
 }
