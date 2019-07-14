@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BuildSystem;
 
-namespace Assets.Editor.BuildSystem
+namespace BuildSystem
 {
     public static class BatchMode
     {
