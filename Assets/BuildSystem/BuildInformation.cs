@@ -6,6 +6,7 @@ namespace BuildSystem
     public class BuildInformation : ScriptableObject
     {
 
+        public string Environment;
         public long BuildDateBinary;
         public DateTime BuildDate => DateTime.FromBinary(BuildDateBinary);
 

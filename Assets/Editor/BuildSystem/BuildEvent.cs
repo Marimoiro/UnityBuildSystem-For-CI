@@ -46,10 +46,14 @@ namespace BuildSystem
             var parameter = BuildParameter.GetActiveParameter();
             Debug.Log($"Build {report.summary.platform} Start" + Environment.NewLine + JsonUtility.ToJson(parameter));
 
+            PlayerSettings.applicationIdentifier = parameter.BundleIdentifier;
+            PlayerSettings.productName = parameter.AppName;
+
             var bi = ScriptableObject.CreateInstance<BuildInformation>();
 
             bi.BuildDateBinary = DateTime.Now.ToBinary();
             bi.BundleIdentifier = parameter.BundleIdentifier;
+            bi.Environment = parameter.Environment;
             
 
             bi.Save();
