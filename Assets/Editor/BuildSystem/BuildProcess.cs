@@ -44,7 +44,7 @@ namespace BuildSystem
         /// <summary>
         /// Build active build target
         /// </summary>
-        [MenuItem("buildSystem/Build with Active Parameters")]
+        [MenuItem("BuildSystem/Build with Active Parameters")]
         public static void Build()
         {
 
